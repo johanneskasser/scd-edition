@@ -108,7 +108,7 @@ python -m scd_app.gui.main_window
 
 1. **Configuration:** Use Tab 1 to define the data format, sampling rate, input files, and electrode grids. Apply the configuration.
 2. **Decomposition:** In Tab 2, set parameters, select channels/time windows, and run the decomposition.
-3. **Edition:** The results automatically load into Tab 3. Browse units using the port/unit dropdowns or arrow keys, edit spikes using modes/ROI, monitor quality metrics, recalculate filters if needed, and flag units for deletion.
+3. **Edition:** The results automatically load into Tab 3. Browse units using the port/unit dropdowns or arrow keys, edit spikes using modes/selection windows, monitor quality metrics, recalculate filters if needed, and flag units for deletion.
 4. **Save:** Save the edited decomposition as a `.pkl` file.
 
 ### Keyboard Shortcuts
