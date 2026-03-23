@@ -222,6 +222,7 @@ def compute_unit_properties(
     props.n_spikes = int(np.sum(spike_train_col))
 
     if not _TOOLBOX_AVAILABLE or props.n_spikes < 2:
+        props.muap_grid = muap_grid
         return props
 
     # Reshape single-unit arrays to (n, 1) as toolbox expects
@@ -469,8 +470,8 @@ def recompute_unit_properties(
             muaps_new = tb_props.get_muaps(st1, emg_grid, fs=fsamp_int, win_ms=win_ms)
             muaps_new = tb_props.center_muaps(muaps_new)
             muap_grid = muaps_new[0]
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"  [mu_props] MUAP recompute failed: {e}")
 
     return compute_unit_properties(
         timestamps=new_timestamps,
