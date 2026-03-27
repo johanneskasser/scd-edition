@@ -476,6 +476,22 @@ GRID_POSITIONS_HD04MM1606 = {
     16: (5, 15),
 }
 
+# HD10MM0804 / HD05MM0804: 8 rows × 4 cols = 32 channels
+# Sequential layout (NOT serpentine): channels increase monotonically
+# top-to-bottom within each physical column, columns left-to-right.
+# grid_shape=(8,4) → positions as (row, col), matching the (rows,cols) convention
+# used by GR08MM1305 and GR10MM0808.
+GRID_POSITIONS_8x4 = {
+     1: (0, 0),  2: (1, 0),  3: (2, 0),  4: (3, 0),
+     5: (4, 0),  6: (5, 0),  7: (6, 0),  8: (7, 0),
+     9: (0, 1), 10: (1, 1), 11: (2, 1), 12: (3, 1),
+    13: (4, 1), 14: (5, 1), 15: (6, 1), 16: (7, 1),
+    17: (0, 2), 18: (1, 2), 19: (2, 2), 20: (3, 2),
+    21: (4, 2), 22: (5, 2), 23: (6, 2), 24: (7, 2),
+    25: (0, 3), 26: (1, 3), 27: (2, 3), 28: (3, 3),
+    29: (4, 3), 30: (5, 3), 31: (6, 3), 32: (7, 3),
+}
+
 
 ELECTRODE_GRIDS = {
     "GR08MM1305": {
@@ -519,6 +535,27 @@ ELECTRODE_GRIDS = {
         "n_channels": 96,
         "muap_mapping": {i: i + 1 for i in range(96)},
         "positions": GRID_POSITIONS_HD04MM1606,
+    },
+    "HD08MM1305": {
+        "grid_shape": (5, 13),
+        "ied_mm": 8,
+        "n_channels": 64,
+        "muap_mapping": {i: i + 1 for i in range(64)},
+        "positions": GRID_POSITIONS_HD04MM1305,
+    },
+    "HD10MM0804": {
+        "grid_shape": (8, 4),
+        "ied_mm": 10,
+        "n_channels": 32,
+        "muap_mapping": {i: i + 1 for i in range(32)},
+        "positions": GRID_POSITIONS_8x4,
+    },
+    "HD05MM0804": {
+        "grid_shape": (8, 4),
+        "ied_mm": 5,
+        "n_channels": 32,
+        "muap_mapping": {i: i + 1 for i in range(32)},
+        "positions": GRID_POSITIONS_8x4,
     },
 }
 
