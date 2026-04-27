@@ -1859,16 +1859,29 @@ class EditionTab(QWidget):
 
         can_full, _ = supports_full_source_computation(data)
         if can_full and not data.get("skip_filter_recalc"):
-            reply = QMessageBox.question(
-                self,
-                "Recalculate Timestamps?",
-                "Do you want to recalculate spike timestamps on the full signal?\n\n"
-                "Yes — re-detect timestamps from the source over the entire recording.\n"
-                "No  — keep the original timestamps from the decomposed section only.",
-                QMessageBox.Yes | QMessageBox.No,
-                QMessageBox.No,
+            pts = data.get("plateau_coords", data.get("selected_points"))
+            raw = data.get("data")
+            full_len = (
+                raw.shape[1]
+                if raw is not None and hasattr(raw, "shape") and raw.ndim >= 2
+                else None
             )
-            self._redetect_timestamps = reply == QMessageBox.Yes
+            is_partial_section = (
+                pts is not None
+                and full_len is not None
+                and (int(pts[0]) > 0 or int(pts[1]) < full_len)
+            )
+            if is_partial_section:
+                reply = QMessageBox.question(
+                    self,
+                    "Recalculate Timestamps?",
+                    "Do you want to recalculate spike timestamps on the full signal?\n\n"
+                    "Yes — re-detect timestamps from the source over the entire recording.\n"
+                    "No  — keep the original timestamps from the decomposed section only.",
+                    QMessageBox.Yes | QMessageBox.No,
+                    QMessageBox.No,
+                )
+                self._redetect_timestamps = reply == QMessageBox.Yes
         else:
             self._redetect_timestamps = True
 
